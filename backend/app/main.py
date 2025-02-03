@@ -9,7 +9,7 @@ app = FastAPI()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-ALLOWED_ORIGINS = getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+ALLOWED_ORIGINS = getenv("ALLOWED_ORIGINS")
  
 class PasswordRequest(BaseModel):
     password: str = Field(..., min_length=8, max_length=100)
