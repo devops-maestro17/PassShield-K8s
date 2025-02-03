@@ -14,12 +14,13 @@ spec:
     spec:
       containers:
       - name: backend
-        image: cloudmaestro/backend:1.0
+        image: cloudmaestro/backend:2.0
         ports:
         - containerPort: 8000
         env:
         - name: ALLOWED_ORIGINS
           value: "http://frontend-service"
+---
 apiVersion: v1
 kind: Service
 metadata:
