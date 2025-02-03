@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: backend
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: your-registry/backend:latest
+        image: cloudmaestro/backend:1.0
         ports:
         - containerPort: 8000
         env:
