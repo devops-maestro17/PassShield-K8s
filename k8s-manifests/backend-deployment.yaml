@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: cloudmaestro/backend:2.0
+        image: cloudmaestro/backend:1.0
         ports:
         - containerPort: 8000
         env:
