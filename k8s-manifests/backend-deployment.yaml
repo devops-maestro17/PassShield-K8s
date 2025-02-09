@@ -19,12 +19,14 @@ spec:
         - containerPort: 8000
         env:
         - name: ALLOWED_ORIGINS
-          value: "http://frontend-service"
+          value: "frontend-service"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-service
+  labels:
+    app: backend-service
 spec:
   selector:
     app: backend
