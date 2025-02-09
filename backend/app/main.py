@@ -3,15 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import hashlib
 import requests
+import os
 from .password_utils import check_password_strength
-from .config import settings
 
 app = FastAPI()
+
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "*").split(",")
 
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
