@@ -19,7 +19,7 @@ spec:
         - containerPort: 8000
         env:
         - name: ALLOWED_ORIGINS
-          value: "frontend-service"
+          value: "http://frontend-service"
 ---
 apiVersion: v1
 kind: Service
