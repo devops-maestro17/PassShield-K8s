@@ -3,10 +3,10 @@ FROM node:23-alpine AS build-stage
 WORKDIR /app
 
 # Define build-time argument
-ARG REACT_APP_API_URL
+# ARG REACT_APP_API_URL
 
 # Set environment variable
-ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+# ENV REACT_APP_API_URL=${REACT_APP_API_URL}
 
 COPY package*.json ./
 RUN npm ci
