@@ -5,7 +5,7 @@ metadata:
 spec:
   secretName: tls-cert
   dnsNames:
-  - devops-maestro.xyz
+  - app.devops-maestro.xyz
   issuerRef:
     name: letsencrypt-production
     kind: ClusterIssuer

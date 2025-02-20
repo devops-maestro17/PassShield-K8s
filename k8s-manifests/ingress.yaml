@@ -3,9 +3,14 @@ kind: Ingress
 metadata:
   name: password-checker-ingress
 spec:
+  tls:
+  - hosts:
+    - app.devops-maestro.xyz
+    secretName: tls-cert
   ingressClassName: nginx
   rules:
-  - http:
+  - host: app.devops-maestro.xyz
+    http:
       paths:
       - path: /api
         pathType: Prefix
