@@ -1,4 +1,4 @@
-# Password Strength Checker
+# PassShield-K8s
 
 This project is a Password Strength Checker application that helps users check the strength of their passwords and ensures they haven't been compromised in any known data breaches. The application consists of a frontend built with React and a backend built with FastAPI.
 
