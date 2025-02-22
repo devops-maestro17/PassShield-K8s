@@ -29,13 +29,13 @@ resource "google_container_node_pool" "general" {
   }
 
   node_config {
-    preemptible  = true
+    preemptible  = false
     machine_type = "e2-medium"
 
     labels = {
       role = "pass-shield"
     }
-
+    spot = true
 
     service_account = google_service_account.gke.email
     oauth_scopes = [
