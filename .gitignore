@@ -33,3 +33,12 @@ Thumbs.db
 
 # Docker
 *.log
+
+/terraform/.terraform
+/terraform/.terraform.*
+/terraform/terraform.tfstate
+/terraform/terraform.tfstate.backup
+/terraform/modules/gke/.terraform
+/terraform/modules/gke/.terraform.*
+/terraform/modules/networking/.terraform.*
+/terraform/modules/networking/.terraform

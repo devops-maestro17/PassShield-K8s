@@ -1,6 +1,6 @@
 provider "google" {
   project = var.project_id
-  region = var.region
+  region  = var.region
 }
 
 terraform {
@@ -16,18 +16,21 @@ terraform {
 
 module "networking" {
   source = "./modules/networking"
-  
-  project_id = var.project_id
-  region = var.region
+
+  project_id                = var.project_id
+  region                    = var.region
   private_subnet_cidr_range = var.private_subnet_cidr_range
-  pod_cidr_range = var.pod_cidr_range
-  service_cidr_range = var.service_cidr_range
-  apis = var.apis
+  pod_cidr_range            = var.pod_cidr_range
+  service_cidr_range        = var.service_cidr_range
+  apis                      = var.apis
 }
 
 module "gke" {
-  source = "./modules/gke"
-  cluster_name = var.cluster_name
-  cluster_location = var.cluster_location
+  source             = "./modules/gke"
+  vpc                = module.networking.vpc_self_link
+  private_subnet     = module.networking.private_subnet_self_link
+  cluster_name       = var.cluster_name
+  cluster_location   = var.cluster_location
   initial_node_count = var.initial_node_count
+  project_id         = module.networking.project_id
 }
