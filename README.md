@@ -1,18 +1,17 @@
 # PassShield-K8s
 
-This project is a Password Strength Checker application that helps users check the strength of their passwords and ensures they haven't been compromised in any known data breaches. The application consists of a frontend built with React and a backend built with FastAPI.
+PassShield-K8s is a comprehensive solution for ensuring password security. It evaluates the strength of your passwords and checks if they have been compromised in any data breaches using the Have I Been Pwned API. The application features a React-based frontend and a FastAPI backend, both of which are containerized using Docker and served via Nginx for optimal performance and security.
+
+The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx controller to manage traffic, and SSL certificates from Let's Encrypt and Cert Manager to secure communications. The infrastructure is provisioned using Terraform, creating a custom VPC in Google Cloud Platform (GCP). Additionally, Cast.ai is integrated to monitor and optimize Kubernetes costs, providing real-time cost reports and suggestions for cost-saving measures.
 
 ## Table of Contents
 
 - [Features](#features)
 - [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
-- [Local Development](#local-development)
 - [Docker Setup](#docker-setup)
 - [Kubernetes Deployment](#kubernetes-deployment)
 - [GKE Deployment](#gke-deployment)
-- [Environment Variables](#environment-variables)
-- [License](#license)
 
 ## Features
 
@@ -20,6 +19,10 @@ This project is a Password Strength Checker application that helps users check t
 - Password breach checking using the Have I Been Pwned API
 - Responsive UI built with React and Tailwind CSS
 - Backend API built with FastAPI
+- Dockerized frontend and backend with Nginx
+- Deployed to GKE with Ingress Nginx controller and SSL certificates
+- Custom VPC in GCP using Terraform
+- Cost monitoring and optimization using Cast.ai
 
 ## Architecture
 
@@ -31,60 +34,51 @@ The application consists of two main components:
 ## Prerequisites
 
 - Docker
-- Docker Compose
 - Kubernetes CLI (`kubectl`)
 - Google Cloud SDK (`gcloud`)
 - A Google Cloud Platform (GCP) project
+- A custom domain from GoDaddy/Cloudflare/Namecheap or any other provider
 
-## Local Development
+## Accessing a CloudShell terminal inside GCP to setup the application
 
-### Frontend
+- Open the Google Cloud Console and open a CloudShell session which will help to create the infrastructure and deploy the application to Google Kubernetes Engine
+- Clone the application source code:
 
-1. Navigate to the `frontend` directory:
     ```sh
-    cd frontend
+    git clone https://github.com/devops-maestro17/PassShield-K8s.git
+
+    # Navigate to the directory
+    cd PassShield-K8s/
+    ```
+- Review the infrastructure on GCP using the Terraform configuration which is provided in the source code inside `terraform` folder.
+    ```sh
+    cd terraform/
+
+    # Initialize terraform inside the working directory
+    terraform init
+
+    # Review the infrastructure which will be created
+    terraform plan 
     ```
 
-2. Install dependencies:
-    ```sh
-    npm install
-    ```
 
-3. Start the development server:
-    ```sh
-    npm start
-    ```
+> This will create a custom VPC with private subnet, firewall rules allowing HTTP and HTTPS traffic and a Google Kubernetes engine cluster with 2 nodes. If you want to deploy the infrastructure in a differet region then modify the terraform.tfvars file before deploying. The file contains the variables which are needed for during the deployment. Provide the GCP project ID and the region as shown below:
 
-### Backend
-
-1. Navigate to the [backend](http://_vscodecontentref_/1) directory:
-    ```sh
-    cd backend
-    ```
-
-2. Create a virtual environment and activate it:
-    ```sh
-    python -m venv venv
-    source venv/bin/activate
-    ```
-
-3. Install dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-4. Start the FastAPI server:
-    ```sh
-    uvicorn app.main:app --reload
-    ```
+![alt text](image-2.png)
 
 ## Docker Setup
 
-### Build and Run with Docker Compose
+### Build the docker images for frontend and backend
 
-1. Build and start the services:
+1. Build frontend image:
     ```sh
-    docker-compose up --build
+    cd frontend
+    docker build -t frontend-app:1.0 .
+    ```
+2. Build backend image:
+    ```sh
+    cd backend
+    docker build -t backend-app:1.0 .
     ```
 
 2. Access the frontend at `http://localhost:3000` and the backend at `http://localhost:8000`.
@@ -165,11 +159,6 @@ The application consists of two main components:
 
 ## Environment Variables
 
-
 ### Backend
 
 - `ALLOWED_ORIGINS`: A comma-separated list of allowed origins for CORS.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
