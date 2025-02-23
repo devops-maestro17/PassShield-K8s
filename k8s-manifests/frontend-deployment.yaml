@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: cloudmaestro/frontend:4.0
+        image: cloudmaestro/frontend:1.0
         ports:
         - containerPort: 80
 
