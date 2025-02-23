@@ -29,7 +29,7 @@ The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx co
 
 The application consists of two main components:
 
-1. **Frontend**: A React application that provides the user interface for checking password strength and breaches.
+1. **Frontend**: A React application that provides the user interface.
 2. **Backend**: A FastAPI application that provides the API endpoints for checking password strength and breaches.
 
 ### Project Structure
