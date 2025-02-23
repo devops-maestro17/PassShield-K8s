@@ -285,21 +285,67 @@ The docker images are already available in my public Dockerhub repository with t
                 port:
                   number: 80
   ```
-  The ingress uses the domain name which you will provide and it will route the traffic to the frontend service based on `/` path and backend service based on `/api` path. It also uses `tls-cert` secret which is created automatically when the Certificate manifest is created.
+  The ingress uses the domain name which you will provide and it will route the traffic to the frontend service based on `/` path and backend service based on `/api` path. It also uses `tls-cert` secret which is created automatically when the Certificate manifest is created. Provide your domain name in the `hosts` value to get started. Below are the configuration files for ClusterIssuer and Certificate.
 
-2. Apply the backend deployment and service:
-    ```sh
-    kubectl apply -f k8s-manifests/backend-deployment.yaml -n password-checker
+- ClusterIssuer:
+  ```yaml
+    apiVersion: cert-manager.io/v1
+    kind: ClusterIssuer
+    metadata:
+      name: letsencrypt-production
+    spec:
+      acme:
+        server: https://acme-v02.api.letsencrypt.org/directory
+        email: rajdeep_deogharia@outlook.com
+        privateKeySecretRef:
+          name: pwned-secret-key
+        solvers:
+        - http01:
+            ingress:
+              ingressClassName: nginx
+  ```
+- Certificate
+    ```yaml
+    apiVersion: cert-manager.io/v1
+    kind: Certificate
+    metadata:
+      name: password-checker-certificate
+    spec:
+      secretName: tls-cert
+      dnsNames:
+      - app.devops-maestro.xyz
+      issuerRef:
+        name: letsencrypt-production
+        kind: ClusterIssuer
     ```
-
-3. Apply the frontend deployment and service:
+    
+### Connect to the Kubernetes cluster in CloudShell
     ```sh
-    kubectl apply -f k8s-manifests/frontend-deployment.yaml -n password-checker
+    gcloud container clusters get-credentials <your-cluster-name> --zone <your-cluster-zone> --project <your-project-id>
     ```
-
-4. Apply the ingress resource:
+    
+### Verify connection by using the following command:
     ```sh
-    kubectl apply -f k8s-manifests/ingress.yaml -n password-checker
+    kubectl get nodes
+    ```
+    
+### Install cert-manager:
+    ```sh
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
+    ```
+### Apply the kubernetes deployment and service
+    ```sh
+        
+
+### Install Ingress Nginx Controller using the following commands:
+    ```sh
+    # Create a ClusterRoleBinding
+    kubectl create clusterrolebinding cluster-admin-binding \
+      --clusterrole cluster-admin \
+      --user $(gcloud config get-value account)
+
+    # Apply the ingress-nginx manifests
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml
     ```
 
 ### Install Ingress Nginx Controller
