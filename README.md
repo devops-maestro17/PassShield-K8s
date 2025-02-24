@@ -4,8 +4,7 @@ PassShield-K8s is a comprehensive solution for ensuring password security. It ev
 
 The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx controller to manage traffic, and SSL certificates from Let's Encrypt and Cert Manager to secure communications. The infrastructure is provisioned using Terraform, creating a custom VPC in Google Cloud Platform (GCP). Additionally, Cast.ai is integrated to monitor and optimize Kubernetes costs, providing real-time cost reports and suggestions for cost-saving measures.
 
-![image](https://github.com/user-attachments/assets/0612e996-bc3d-4be9-ae54-e45faf814633)
-
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/0612e996-bc3d-4be9-ae54-e45faf814633" /> <img width="500" alt="image" src="https://github.com/user-attachments/assets/337bd5fc-cdb8-458b-b8ee-e29a4d8b93c3" />
 
 ## Table of Contents
 
@@ -326,12 +325,10 @@ The docker images are already available in my public Dockerhub repository with t
     ```sh
     gcloud container clusters get-credentials <your-cluster-name> --zone <your-cluster-zone> --project <your-project-id>
     ```
-    
 ### Verify connection by using the following command:
     ```sh
     kubectl get nodes
     ```
-    
 ### Install cert-manager:
     ```sh
     kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.17.0/cert-manager.yaml
@@ -370,7 +367,6 @@ The docker images are already available in my public Dockerhub repository with t
     # Apply the ingress-nginx manifests
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml
     ```
-
 ### Verify the Ingress Nginx controller configuration
     ```sh
         kubectl get svc -n ingress-nginx
@@ -398,43 +394,15 @@ The docker images are already available in my public Dockerhub repository with t
 
 ## Setting up Cast.AI
 
-### Set Up GKE Cluster
+- Navigate to the Cast.ai console by visting this URL `https://console.cast.ai/` and create a new account
+- Click on Connect Cluster button to connect Cast.ai to your GKE cluster
+- Choose GKE from the Provider options and run the script in your GKE cluster which is provided in Cast.ai console
+- Click on `I ran this script` button and wait for cast.ai to connect to your cluster
+- Click on `Enable Cast AI`
+- Now select `Cost Monitoring` option and `Network cost use metrics` and then run the script provided inside your GKE cluster.
+- Once it is completed, click again on `I ran this script`
+- Navigate to your cluster in the Cast.ai console and the dashboard will appear as shown below:
 
-1. Authenticate with GCP:
-    ```sh
-    gcloud auth login
-    ```
+![image](https://github.com/user-attachments/assets/a7aa62c4-0a63-4692-9f02-f09a4d235eff)
 
-2. Set the project:
-    ```sh
-    gcloud config set project YOUR_PROJECT_ID
-    ```
-
-3. Create a GKE cluster:
-    ```sh
-    gcloud container clusters create password-checker-cluster --zone YOUR_ZONE
-    ```
-
-4. Get credentials for the cluster:
-    ```sh
-    gcloud container clusters get-credentials password-checker-cluster --zone YOUR_ZONE
-    ```
-
-### Deploy the Application
-
-1. Follow the steps in the Kubernetes Deployment section to deploy the application to the GKE cluster.
-
-### Configure DNS
-
-1. Get the external IP of the ingress controller:
-    ```sh
-    kubectl get svc -n ingress-nginx
-    ```
-
-2. Update your DNS records to point to the external IP of the ingress controller.
-
-## Environment Variables
-
-### Backend
-
-- `ALLOWED_ORIGINS`: A comma-separated list of allowed origins for CORS.
+![image](https://github.com/user-attachments/assets/8bdb4801-0af7-4aba-90b2-dfd27d9b94f3)
