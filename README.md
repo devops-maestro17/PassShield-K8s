@@ -4,6 +4,9 @@ PassShield-K8s is a comprehensive solution for ensuring password security. It ev
 
 The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx controller to manage traffic, and SSL certificates from Let's Encrypt and Cert Manager to secure communications. The infrastructure is provisioned using Terraform, creating a custom VPC in Google Cloud Platform (GCP). Additionally, Cast.ai is integrated to monitor and optimize Kubernetes costs, providing real-time cost reports and suggestions for cost-saving measures.
 
+![image](https://github.com/user-attachments/assets/0612e996-bc3d-4be9-ae54-e45faf814633)
+
+
 ## Table of Contents
 
 - [Features](#features)
@@ -12,7 +15,7 @@ The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx co
 - [Deploy the infrastructure using Terraform](#deploy-the-infrastructure-using-terraform)
 - [Docker Setup](#docker-setup)
 - [Kubernetes Deployment](#kubernetes-deployment)
-- [GKE Deployment](#gke-deployment)
+- [Setting up Cast.AI](#gke-deployment)
 
 ## Features
 
@@ -345,7 +348,7 @@ The docker images are already available in my public Dockerhub repository with t
 
 ![image](https://github.com/user-attachments/assets/1479381d-b0c0-47e5-b0b7-22a9573ac3e2)
 
-> For the next step, you need a custom domain. In this project I have used my custom domain `app.devops-maestro.xyz` as defined in the `ingress.yaml` file
+> For the next step, you need a custom domain. In this project I have used my custom domain `app.devops-maestro.xyz` as defined in the `ingress.yaml` file. 
 
 ### Apply the Ingress manifest with your custom domain
     ```sh
@@ -356,12 +359,6 @@ The docker images are already available in my public Dockerhub repository with t
     ```
     
 ![image](https://github.com/user-attachments/assets/cf4cc46b-e0d3-4b3a-84b3-cf6a4259c2f5)
-
-### Apply the ClusterIssuer and Certificate manifests
-
-    ```sh
-    kubectl apply -f cluster-issuer.yaml -f certificate.yaml
-    ```
 
 ### Install Ingress Nginx Controller using the following commands:
     ```sh
@@ -378,11 +375,28 @@ The docker images are already available in my public Dockerhub repository with t
     ```sh
         kubectl get svc -n ingress-nginx
     ```
+> Fetch the External IP address of the `ingress-nginx-controller` and add it as an A record under your domain name provider
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/ac45ed9c-84f6-4818-8ddb-3a0230c317d0" />
 
+### Apply the ClusterIssuer and Certificate manifests
 
-## GKE Deployment
+    ```sh
+    kubectl apply -f cluster-issuer.yaml -f certificate.yaml
+    ```
+
+> Re-apply the Ingress manifest by using `kubectl apply -f ingress.yaml` command and then hit the URL `https://<your-domain-name>` in your browser to access the website.
+
+![image](https://github.com/user-attachments/assets/a9b69aa7-03be-486f-86d9-b87c2b1944e1)
+
+### You can also view the SSL certificate and issuer details by using the below command:
+    ```sh
+        curl -v https://<your-domain-name>
+    ```
+
+<img width="626" alt="image" src="https://github.com/user-attachments/assets/9bc1d08b-1a0e-4005-b35f-1f90b16e59b7" />
+
+## Setting up Cast.AI
 
 ### Set Up GKE Cluster
 
