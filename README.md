@@ -15,7 +15,7 @@ The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx co
 - [Deploy the infrastructure using Terraform](#deploy-the-infrastructure-using-terraform)
 - [Docker Setup](#docker-setup)
 - [Kubernetes Deployment](#kubernetes-deployment)
-- [Setting up Cast.AI](#gke-deployment)
+- [Setting up Cast.AI](#setting-up-castai)
 
 ## Features
 
