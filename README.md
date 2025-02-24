@@ -1,4 +1,4 @@
-# PassShield-K8s
+# Deploying a 2-Tier Application to Google Kubernetes Engine with HTTPS and Cost Optimization using Cast.ai
 
 PassShield-K8s is a comprehensive solution for ensuring password security. It evaluates the strength of your passwords and checks if they have been compromised in any data breaches using the Have I Been Pwned API. The application features a React-based frontend and a FastAPI backend, both of which are containerized using Docker and served via Nginx for optimal performance and security.
 
