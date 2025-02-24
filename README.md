@@ -335,7 +335,33 @@ The docker images are already available in my public Dockerhub repository with t
     ```
 ### Apply the kubernetes deployment and service
     ```sh
-        
+        kubectl apply -f frontend-deployment.yaml -f frontend-deployment.yaml
+    ```
+### Verify the pods and services are running
+    ```sh
+        kubectl get pods
+        kubectl get svc
+    ```
+
+![image](https://github.com/user-attachments/assets/1479381d-b0c0-47e5-b0b7-22a9573ac3e2)
+
+> For the next step, you need a custom domain. In this project I have used my custom domain `app.devops-maestro.xyz` as defined in the `ingress.yaml` file
+
+### Apply the Ingress manifest with your custom domain
+    ```sh
+        kubectl apply -f ingress.yaml
+
+        # Review the ingress configuration
+        kubectl get ingress
+    ```
+    
+![image](https://github.com/user-attachments/assets/cf4cc46b-e0d3-4b3a-84b3-cf6a4259c2f5)
+
+### Apply the ClusterIssuer and Certificate manifests
+
+    ```sh
+    kubectl apply -f cluster-issuer.yaml -f certificate.yaml
+    ```
 
 ### Install Ingress Nginx Controller using the following commands:
     ```sh
@@ -348,18 +374,13 @@ The docker images are already available in my public Dockerhub repository with t
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml
     ```
 
-### Install Ingress Nginx Controller
-
-1. Add the ingress-nginx repository:
+### Verify the Ingress Nginx controller configuration
     ```sh
-    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-    helm repo update
+        kubectl get svc -n ingress-nginx
     ```
 
-2. Install the ingress-nginx controller:
-    ```sh
-    helm install ingress-nginx ingress-nginx/ingress-nginx --namespace ingress-nginx --create-namespace
-    ```
+<img width="700" alt="image" src="https://github.com/user-attachments/assets/ac45ed9c-84f6-4818-8ddb-3a0230c317d0" />
+
 
 ## GKE Deployment
 
