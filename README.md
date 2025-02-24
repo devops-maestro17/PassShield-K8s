@@ -4,7 +4,7 @@ PassShield-K8s is a comprehensive solution for ensuring password security. It ev
 
 The deployment leverages Google Kubernetes Engine (GKE) with an Ingress Nginx controller to manage traffic, and SSL certificates from Let's Encrypt and Cert Manager to secure communications. The infrastructure is provisioned using Terraform, creating a custom VPC in Google Cloud Platform (GCP). Additionally, Cast.ai is integrated to monitor and optimize Kubernetes costs, providing real-time cost reports and suggestions for cost-saving measures.
 
-<img width="500" alt="image" src="https://github.com/user-attachments/assets/0612e996-bc3d-4be9-ae54-e45faf814633" /> <img width="500" alt="image" src="https://github.com/user-attachments/assets/337bd5fc-cdb8-458b-b8ee-e29a4d8b93c3" />
+<img width="500" alt="image" src="https://github.com/user-attachments/assets/a9b69aa7-03be-486f-86d9-b87c2b1944e1" /> <img width="500" alt="image" src="https://github.com/user-attachments/assets/337bd5fc-cdb8-458b-b8ee-e29a4d8b93c3" />
 
 ## Table of Contents
 
